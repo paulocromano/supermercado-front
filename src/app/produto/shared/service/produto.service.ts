@@ -21,4 +21,8 @@ export class ProdutoService {
         tap(console.log)
       );
   }
+
+  public buscarImagemProduto(id: number): Observable<any> {
+    return this.http.get(`${API_CONFIG.baseUrl}/produto/imagem/${id}`, { responseType: 'blob' });
+  }
 }

@@ -18,7 +18,7 @@
     </ng-template>
 
     <ng-template let-produto pTemplate="gridItem">
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-4 d-inline-block">
             <div class="produto-grid-item card">
                 <div class="produto-grid-item-top"> 
                     <span>
@@ -27,6 +27,10 @@
                     </span>
                 
                     <span class="produto-grid-status status-em-estoque">{{ produto.statusProduto }}</span>
+                </div>
+
+                <div class="produto-grid-item-conteudo">
+                    <img [src]="produto.imagem || 'assets/prod.jpg'">
                 </div>
             </div>
         </div>

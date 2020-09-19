@@ -20,6 +20,8 @@
 .produto-grid-status {
     padding: 0 8px;
     border-radius: 3px;
+    font-weight: 600;
+    font-size: 14px;
 
 }
 
@@ -27,4 +29,16 @@
     border: 1px solid rgb(110, 248, 98);
     background-color: rgba(97, 240, 118, 0.801);
     color: rgb(16, 92, 16);  
+}
+
+.produto-grid-item-conteudo {
+    text-align: center;
+}
+
+img {
+    position: relative;
+    width: 70%;
+    height: 70%;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    margin: 2rem 0;
 }

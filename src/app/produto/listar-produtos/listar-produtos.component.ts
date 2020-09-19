@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import {SelectItem} from 'primeng/api';
 import { PrimeNGConfig } from 'primeng/api';
@@ -22,7 +23,8 @@ export class ListarProdutosComponent implements OnInit {
 
   constructor(
     private produtoService: ProdutoService,
-    private primengConfig: PrimeNGConfig
+    private primengConfig: PrimeNGConfig,
+    private sanitizer : DomSanitizer
     ) { }
 
 
@@ -36,12 +38,31 @@ export class ListarProdutosComponent implements OnInit {
 
   private listarProdutos(): void {
     this.produtoService.buscarTodosProdutos()
-      .subscribe((produto: Produto[]) => this.produtos = produto,
+      .subscribe((produto: Produto[]) => {
+        this.produtos = produto;  
+        this.carregarImagem();
+      },
 
         (errorBackEnd: HttpErrorResponse) => {
           console.log(errorBackEnd)
         }
-      );
+      );      
+  }
+
+  public carregarImagem() {
+   
+    for (let i = 0; i < this.produtos.length; i++) {
+      const idProduto = this.produtos[i].id;
+      
+      this.produtoService.buscarImagemProduto(idProduto)
+      .subscribe((imagem: any) => {
+        console.log(imagem);
+
+        let blob = new Blob([imagem]);
+        this.produtos[i].imagem = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(blob));
+      }),
+        (error) => {};
+    }; 
   }
 
   private ordenacaoDataView() {

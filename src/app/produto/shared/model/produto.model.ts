@@ -1,3 +1,4 @@
+import { SafeUrl } from '@angular/platform-browser';
 import { Setor } from './setor.model';
 
 export class Produto {
@@ -13,5 +14,5 @@ export class Produto {
     statusProduto: string;
     observacoes: string;
     setor: Setor;
-    imagem: Blob;
+    imagem?: SafeUrl;
 }
