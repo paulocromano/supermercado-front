@@ -1,0 +1,30 @@
+.card {
+    padding: 2rem;
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+    margin-bottom: 2rem;
+}
+
+.produto-grid-item {
+    margin: .5em;
+    border: 1px solid #dee2e6;
+}
+
+.produto-grid-item-top,
+.produto-grid-item-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.produto-grid-status {
+    padding: 0 8px;
+    border-radius: 3px;
+
+}
+
+.status-em-estoque {
+    border: 1px solid rgb(110, 248, 98);
+    background-color: rgba(97, 240, 118, 0.801);
+    color: rgb(16, 92, 16);  
+}
