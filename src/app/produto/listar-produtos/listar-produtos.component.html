@@ -12,27 +12,100 @@
             </div>
             
             <div class="col-6">
-                <span>{{ produto.statusProduto }}</span>
+                <div>{{ produto.statusProduto }}</div>
             </div>
         </div>
     </ng-template>
 
     <ng-template let-produto pTemplate="gridItem">
-        <div class="col-12 col-md-4 d-inline-block">
+        <div class="col-12 col-md-6 col-lg-4 d-inline-block">
+
             <div class="produto-grid-item card">
-                <div class="produto-grid-item-top"> 
-                    <span>
-                        <i class="fas fa-tag"></i>
-                        {{ produto.setor.nome }}
-                    </span>
+
+                <div class="produto-grid-item-header"> 
+                    <div class="produto-tag-nome-setor">
+                        <i class="fas fa-tag" style="color: rgb(98, 182, 182);"></i>
+                        <div class="produto-nome-setor d-inline-block">{{ produto.setor.nome }}</div>
+                    </div>
                 
-                    <span class="produto-grid-status status-em-estoque">{{ produto.statusProduto }}</span>
+                    <div class="produto-grid-status" 
+                        [ngClass]="{
+                            'status-em-estoque': produto.statusProduto === statusProduto.EM_ESTOQUE,
+                            'status-estoque-baixo': produto.statusProduto === statusProduto.ESTOQUE_BAIXO,
+                            'status-esgotado': produto.statusProduto === statusProduto.ESGOTADO
+                        }">
+                        {{ produto.statusProduto }}
+                    </div>
                 </div>
 
                 <div class="produto-grid-item-conteudo">
-                    <img [src]="produto.imagem || 'assets/prod.jpg'">
+                    <img [src]="produto.imagem || 'assets/prod.jpg'" alt="Imagem não encontrada!">
+
+                    <div class="produto-nome">{{ produto.nome }}</div>
+                    <div class="produto-marca">{{ produto.marca }}</div>
+                </div>
+
+                <div class="produto-grid-item-footer">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="produto-preco" 
+                                [ngClass]="{ 'produto-preco-sem-desconto': produto.desconto !== 0 }">
+                                R$ {{ produto.preco }}
+                            </div>
+
+                            <div class="produto-preco-com-desconto" *ngIf="produto.desconto !== 0">R$ {{ produto.precoComDesconto }}</div>
+                        </div>
+                        
+                        <div class="col-md-6 produto-grid-item-footer-buttons">
+                            <button class="btn btn-info btn-sm" tooltipPosition="bottom" pTooltip="Mais informações"
+                            (click)="dialogInformacoesProduto(produto)"> 
+                                <i class="fas fa-info px-1"></i>
+                            </button>
+
+                            <button class="btn btn-success btn-sm ml-4" tooltipPosition="bottom" pTooltip="Adicionar ao Carrinho">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </ng-template>
 </p-dataView>
+
+
+<!-- Dialog de Informações sobre o Produto -->
+<p-dialog [(visible)]="mostrarDialogInformacoesproduto" [draggable]="false" [resizable]="false" [blockScroll]="true" 
+    [closable]="false" [modal]="true" [responsive]="true">
+    
+    <p-header>
+        <i class="fas fa-info-circle" style="color: rgb(51, 105, 253);"></i>
+        Informações sobre o Produto
+        <hr>
+    </p-header>
+
+    <div class="dialog-content">
+        <div><b>Setor: </b>{{ produtoDialog.setor.nome }}</div>
+        <div><b>Nome: </b>{{ produtoDialog.nome }}</div>
+        <div><b>Marca: </b>{{ produtoDialog.marca }}</div>
+        <div><b>Data de Validade: </b>{{ produtoDialog.dataValidade }}</div>
+        <div><b>Preço: R$ </b>{{ produtoDialog.preco }}</div>
+
+        <div *ngIf="produtoDialog.desconto !== 0" >
+            <div><b>Desconto: </b>{{ produtoDialog.desconto }}%</div>
+            <div><b>Preço com Desconto: </b>{{ produtoDialog.precoComDesconto }}</div>
+        </div>
+
+        <div><b>Estoque: </b>{{ produtoDialog.estoque }}</div>
+        <div><b>Status do Produto: </b>{{ produtoDialog.statusProduto }}</div>
+        <div *ngIf="produtoDialog.observacoes" ><b>Observações: </b>{{ produtoDialog.observacoes }}</div>
+    </div>
+
+    <p-footer>
+        <hr>
+        <button class="btn btn-danger" (click)="mostrarDialogInformacoesproduto = false">
+            <i class="fas fa-arrow-circle-left"></i>
+            Voltar
+        </button>
+    </p-footer>
+</p-dialog>

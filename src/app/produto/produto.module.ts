@@ -10,6 +10,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {RippleModule} from 'primeng/ripple';
+import {TooltipModule} from 'primeng/tooltip';
 
 
 import { ListarProdutosComponent } from './listar-produtos/listar-produtos.component';
@@ -28,7 +29,8 @@ import { ListarProdutosComponent } from './listar-produtos/listar-produtos.compo
     DropdownModule,
     InputTextModule,
     ButtonModule,
-    RippleModule
+    RippleModule,
+    TooltipModule
   ],
 
 })

@@ -6,15 +6,27 @@
 }
 
 .produto-grid-item {
-    margin: .5em;
+    margin: 3em;
     border: 1px solid #dee2e6;
 }
 
-.produto-grid-item-top,
-.produto-grid-item-bottom {
+.produto-grid-item-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.produto-tag-nome-setor {
+    padding: 2px 6px;
+    background-color: black;
+    border-radius: 3px;
+    color: rgb(214, 214, 214);
+}
+
+.produto-nome-setor {
+    padding-left: 5px;
+    font-size: 15px;
+    font-weight: 500;
 }
 
 .produto-grid-status {
@@ -22,13 +34,24 @@
     border-radius: 3px;
     font-weight: 600;
     font-size: 14px;
-
 }
 
 .status-em-estoque {
     border: 1px solid rgb(110, 248, 98);
     background-color: rgba(97, 240, 118, 0.801);
-    color: rgb(16, 92, 16);  
+    color: rgb(13, 75, 13);  
+}
+
+.status-estoque-baixo {
+    border: 1px solid rgb(255, 239, 97);
+    background-color: rgba(252, 232, 54, 0.801);
+    color: rgb(141, 63, 12);  
+}
+
+.status-esgotado {
+    border: 1px solid rgb(255, 105, 105);
+    background-color: rgba(248, 45, 45, 0.801);
+    color: rgb(97, 5, 5);  
 }
 
 .produto-grid-item-conteudo {
@@ -41,4 +64,47 @@ img {
     height: 70%;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     margin: 2rem 0;
+}
+
+.produto-nome {
+    margin-top: -20px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.produto-marca {
+  text-align: center;
+  color: rgb(104, 104, 104);
+}
+
+.produto-grid-item-footer {
+    border-top: 1px solid rgb(206, 206, 206);
+    margin: 10px 5%;
+    margin-bottom: -20px;
+}
+
+.produto-preco {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.produto-preco-sem-desconto {
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: line-through;
+    color: rgb(255, 36, 36);
+}
+
+.produto-preco-com-desconto {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.produto-grid-item-footer-buttons {
+    margin-top: 10px;
+}
+
+.dialog-content {
+    margin-bottom: -30px;
 }

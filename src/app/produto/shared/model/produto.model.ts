@@ -13,6 +13,6 @@ export class Produto {
     estoqueMinimo: number;
     statusProduto: string;
     observacoes: string;
-    setor: Setor;
+    setor: Setor = new Setor();
     imagem?: SafeUrl;
 }

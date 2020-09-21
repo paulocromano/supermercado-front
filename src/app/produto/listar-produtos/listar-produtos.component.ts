@@ -1,3 +1,4 @@
+import { StatusProduto } from './../shared/model/statusProduto.enum';
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -21,6 +22,10 @@ export class ListarProdutosComponent implements OnInit {
   public sortOrder: number;
   public sortField: string;
 
+  public statusProduto = StatusProduto;
+  public mostrarDialogInformacoesproduto = false;
+  public produtoDialog: Produto;
+
   constructor(
     private produtoService: ProdutoService,
     private primengConfig: PrimeNGConfig,
@@ -33,6 +38,7 @@ export class ListarProdutosComponent implements OnInit {
     this.ordenacaoDataView();
 
     this.primengConfig.ripple = true;
+    this.produtoDialog = new Produto();
   }
 
 
@@ -83,5 +89,10 @@ export class ListarProdutosComponent implements OnInit {
         this.sortOrder = 1;
         this.sortField = value;
     }
-}
+  }
+
+  public dialogInformacoesProduto(produto: Produto) {
+    this.mostrarDialogInformacoesproduto = true;
+    this.produtoDialog = produto;
+  }
 }
