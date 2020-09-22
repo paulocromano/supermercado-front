@@ -15,12 +15,14 @@ import { Produto } from '../shared/model/produto.model';
   templateUrl: './listar-produtos.component.html',
   styleUrls: ['./listar-produtos.component.css']
 })
+
 export class ListarProdutosComponent implements OnInit {
 
   public produtos: Produto[];
   public sortOptions: SelectItem[];
   public sortOrder: number;
   public sortField: string;
+  public sortKey: string;
 
   public statusProduto = StatusProduto;
   public mostrarDialogInformacoesproduto = false;
@@ -73,16 +75,16 @@ export class ListarProdutosComponent implements OnInit {
 
   private ordenacaoDataView() {
     this.sortOptions = [
-      { label: 'Preço em ordem decrescente', value: '!preço' },
-      { label: 'Preço em ordem crescente', value: 'preço' }
+      { label: 'Nome', value: 'nome' },
+      { label: 'Preço (decrescente)', value: '!preco' },
+      { label: 'Preço (crescente)', value: 'preco' }
     ];
   }
 
   onSortChange(event) {
-    console.log(event);
     let value = event.value;
 
-    if (value.indexOf('!') === 0) {
+    if (value.indexOf(0) === '!') {
         this.sortOrder = -1;
         this.sortField = value.substring(1, value.length);
     }

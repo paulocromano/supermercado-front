@@ -133,3 +133,14 @@ img {
 .dialog-content {
     margin-bottom: -30px;
 }
+
+.pi-search {
+    margin-left: 20px;
+}
+
+@media (max-width: 767px) {
+    .input-search {
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
+}

@@ -1,15 +1,25 @@
 <!-- DataView de Produto -->
 <div class="data-view">
-    <p-dataView #dataview [value]="produtos" [paginator]="true" [rows]="12" layout="grid" filterBy="nome,marca">
+    <p-dataView #dataview [value]="produtos" [sortField]="sortField" [sortOrder]="sortOrder" [paginator]="true" 
+        [rows]="12" layout="grid" filterBy="nome,marca">
+
         <ng-template pTemplate="header">
-            <div class="p-input-icon-left p-mb-2 p-mb-md-0">
-                <i class="pi pi-search"></i>
-                <input type="search" pInputText placeholder="Pesquisar por Nome/Marca" (input)="dataview.filter($event.target.value)"
-                    style="width: 250px;">
-            </div>
-            
-            <div>
-                <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+            <div class="row">
+                <div class="col-md-4 col-xl-3">
+                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordenar por"
+                        (onChange)="onSortChange($event)" [style]="{'width':'200px'}">
+                    </p-dropdown>
+                </div>
+    
+                <div class="col-md-3 col-xl-4 p-input-icon-left input-search">
+                    <i class="pi pi-search"></i>
+                    <input type="search" pInputText placeholder="Pesquisar por Nome/Marca" (input)="dataview.filter($event.target.value)"
+                        style="width: 250px;">
+                </div>
+                
+                <div class="col-md-5 col-xl-5 text-right">
+                    <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                </div>
             </div>
         </ng-template>
     
