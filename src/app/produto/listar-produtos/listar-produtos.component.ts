@@ -1,4 +1,3 @@
-import { StatusProduto } from './../shared/model/statusProduto.enum';
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -8,6 +7,7 @@ import { PrimeNGConfig } from 'primeng/api';
 
 import { ProdutoService } from './../shared/service/produto.service';
 import { Produto } from '../shared/model/produto.model';
+import { StatusProduto } from './../shared/model/statusProduto.enum';
 
 
 @Component({
@@ -16,6 +16,9 @@ import { Produto } from '../shared/model/produto.model';
   styleUrls: ['./listar-produtos.component.css']
 })
 
+/**
+ * @description Classe responsável pela Listagem de Produtos
+ */
 export class ListarProdutosComponent implements OnInit {
 
   public produtos: Produto[];
@@ -44,6 +47,9 @@ export class ListarProdutosComponent implements OnInit {
   }
 
 
+  /**
+   * @description Método responsável por listar os Produtos
+   */
   private listarProdutos(): void {
     this.produtoService.buscarTodosProdutos()
       .subscribe((produto: Produto[]) => {
@@ -57,15 +63,16 @@ export class ListarProdutosComponent implements OnInit {
       );      
   }
 
-  public carregarImagem() {
+  /**
+   * @description Método responsável por carregar a imagem de cada Produto
+   */
+  public carregarImagem(): void {
    
     for (let i = 0; i < this.produtos.length; i++) {
       const idProduto = this.produtos[i].id;
       
       this.produtoService.buscarImagemProduto(idProduto)
       .subscribe((imagem: any) => {
-        console.log(imagem);
-
         let blob = new Blob([imagem]);
         this.produtos[i].imagem = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(blob));
       }),
@@ -73,6 +80,9 @@ export class ListarProdutosComponent implements OnInit {
     }; 
   }
 
+  /**
+   * @description Método responsável pelas opções de ordenação dos Produtos no DataView
+   */
   private ordenacaoDataView() {
     this.sortOptions = [
       { label: 'Nome', value: 'nome' },
@@ -81,7 +91,11 @@ export class ListarProdutosComponent implements OnInit {
     ];
   }
 
-  onSortChange(event) {
+  /**
+   * Método responsável por escutar as mudanças do DropDown de ordenação dos Produtos
+   * @param event : any
+   */
+  onSortChange(event: any): void {
     let value = event.value;
 
     if (value.indexOf(0) === '!') {
@@ -94,7 +108,11 @@ export class ListarProdutosComponent implements OnInit {
     }
   }
 
-  public dialogInformacoesProduto(produto: Produto) {
+  /**
+   * Método responsável por receber as informações do Produto selecionado e abrir o Dialog para mais informações
+   * @param produto : Produto
+   */
+  public dialogInformacoesProduto(produto: Produto): void {
     this.mostrarDialogInformacoesproduto = true;
     this.produtoDialog = produto;
   }
