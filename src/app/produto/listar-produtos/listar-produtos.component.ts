@@ -73,12 +73,13 @@ export class ListarProdutosComponent implements OnInit {
 
   private ordenacaoDataView() {
     this.sortOptions = [
-      { label: 'Price High to Low', value: '!price' },
-      { label: 'Price Low to High', value: 'price' }
+      { label: 'Preço em ordem decrescente', value: '!preço' },
+      { label: 'Preço em ordem crescente', value: 'preço' }
     ];
   }
 
   onSortChange(event) {
+    console.log(event);
     let value = event.value;
 
     if (value.indexOf('!') === 0) {
