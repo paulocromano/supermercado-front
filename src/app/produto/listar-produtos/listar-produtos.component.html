@@ -1,8 +1,16 @@
 <!-- DataView de Produto -->
 <div class="data-view">
-    <p-dataView [value]="produtos" [paginator]="true" [rows]="12" layout="grid">
+    <p-dataView #dataview [value]="produtos" [paginator]="true" [rows]="12" layout="grid" filterBy="nome,marca">
         <ng-template pTemplate="header">
-            <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+            <div class="p-input-icon-left p-mb-2 p-mb-md-0">
+                <i class="pi pi-search"></i>
+                <input type="search" pInputText placeholder="Pesquisar por Nome/Marca" (input)="dataview.filter($event.target.value)"
+                    style="width: 250px;">
+            </div>
+            
+            <div>
+                <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+            </div>
         </ng-template>
     
         <ng-template let-produto pTemplate="listItem">
