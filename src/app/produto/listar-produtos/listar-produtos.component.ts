@@ -26,6 +26,7 @@ export class ListarProdutosComponent implements OnInit {
   public sortOrder: number;
   public sortField: string;
   public sortKey: string;
+  public loading: boolean;
 
   public statusProduto = StatusProduto;
   public mostrarDialogInformacoesproduto = false;
@@ -51,15 +52,19 @@ export class ListarProdutosComponent implements OnInit {
    * @description Método responsável por listar os Produtos
    */
   private listarProdutos(): void {
+    this.loading = true;
+
     this.produtoService.buscarTodosProdutos()
       .subscribe((produto: Produto[]) => {
         this.produtos = produto;  
         this.carregarImagem();
+        this.loading = false;
       },
 
         (errorBackEnd: HttpErrorResponse) => {
           console.log(errorBackEnd)
-        }
+          this.loading = false;
+        },
       );      
   }
 
@@ -92,13 +97,13 @@ export class ListarProdutosComponent implements OnInit {
   }
 
   /**
-   * Método responsável por escutar as mudanças do DropDown de ordenação dos Produtos
+   * Método responsável por escutar as mudanças do DropDown de ordenação de Produtos
    * @param event : any
    */
   onSortChange(event: any): void {
     let value = event.value;
 
-    if (value.indexOf(0) === '!') {
+    if (value.indexOf('!') === 0) {
         this.sortOrder = -1;
         this.sortField = value.substring(1, value.length);
     }

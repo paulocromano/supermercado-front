@@ -13,6 +13,40 @@
     margin-bottom: 2rem;
 }
 
+.list-produto-imagem {
+    position: relative;
+    width: 9em;
+    height: 8em;
+    border-radius: 2px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    margin: 1em 0.5em;
+}
+
+.list-produto-nome {
+    margin-top: 15px;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.list-produto-marca {
+    color: rgb(104, 104, 104);
+}
+
+.list-produto-tag-nome-setor {
+    margin-top: 25px;
+    max-width: fit-content;
+    padding: 2px 6px;
+    background-color: black;
+    border-radius: 3px;
+    color: rgb(214, 214, 214);
+}
+
+.list-produto-nome-setor {
+    padding-left: 5px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
 .produto-grid-item {
     margin: 1em;
     border: 1px solid #dee2e6;
@@ -25,9 +59,7 @@
 }
 
 .produto-tag-nome-setor {
-    margin-left: auto;
-    margin-right: auto;
-    background-size: auto;
+    max-width: fit-content;
     padding: 2px 6px;
     background-color: black;
     border-radius: 3px;
@@ -40,7 +72,7 @@
     font-weight: 500;
 }
 
-.produto-grid-status {
+.produto-status {
     word-break: normal;
     padding: 0 8px;
     border-radius: 3px;
@@ -52,6 +84,7 @@
     margin-top: 3px;
     margin-left: auto;
     margin-right: auto;
+    max-width: fit-content;
 }
 
 .status-em-estoque {
@@ -76,10 +109,11 @@
     text-align: center;
 }
 
-img {
+.grid-produto-imagem {
     position: relative;
-    width: 70%;
-    height: 70%;
+    width: 11em;
+    height: 10em;
+    border-radius: 2px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     margin: 2rem 0;
 }
