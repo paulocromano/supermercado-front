@@ -1,132 +1,271 @@
 <!-- DataView de Produto -->
+
 <div class="data-view">
-    <p-dataView #dataview [value]="produtos" [sortField]="sortField" [sortOrder]="sortOrder" [paginator]="true" 
-        [rows]="12" [loading]="loading" layout="list" filterBy="nome,marca" [emptyMessage]="'Nenhum Produto encontrado!'">
+    <p-tabView>
 
-        <ng-template pTemplate="header">
-            <div class="row">
-                <div class="col-md-4 col-xl-3">
-                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordenar por"
-                        (onChange)="onSortChange($event)" [style]="{'width':'200px'}">
-                    </p-dropdown>
-                </div>
+        <!-- Todos os Produtos -->
+        <p-tabPanel header="Todos">
+            <p-dataView #dataview [value]="produtos" [sortField]="sortField" [sortOrder]="sortOrder" [paginator]="true" 
+                [rows]="12" [loading]="loading" layout="grid" filterBy="nome,marca" [emptyMessage]="'Nenhum Produto encontrado!'">
     
-                <div class="col-md-3 col-xl-4 p-input-icon-left input-search">
-                    <i class="pi pi-search"></i>
-                    <input type="search" pInputText placeholder="Pesquisar por Nome/Marca" (input)="dataview.filter($event.target.value)"
-                        style="width: 250px;">
-                </div>
-                
-                <div class="col-md-5 col-xl-5 text-right">
-                    <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
-                </div>
-            </div>
-        </ng-template>
-    
-        <ng-template let-produto pTemplate="listItem">
-            <div class="row">
-                <div class="col-6 col-sm-3 col-md-3 col-xl-2">
-                    <img class="list-produto-imagem" [src]="produto.imagem || 'assets/prod.jpg'" alt="Imagem não encontrada!">
-                </div>
-
-                <div class="col-6 col-sm-4 col-md-4 col-xl-6">
-                    <div class="list-produto-nome">{{ produto.nome }}</div>
-                    <div class="list-produto-marca">{{ produto.marca }}</div>
-
-                    <div class="list-produto-tag-nome-setor">
-                        <i class="fas fa-tag" style="color: rgb(98, 182, 182);"></i>
-                        <div class="list-produto-nome-setor d-inline-block">{{ produto.setor.nome }}</div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-5 col-md-5 col-xl-4 text-right">
-                    <div class="produto-preco mt-3 mr-3" [ngClass]="{ 'produto-preco-sem-desconto': produto.desconto !== 0 }">
-                        R$ {{ produto.preco }}
-                    </div>
-
-                    <div class="produto-preco-com-desconto mr-3" *ngIf="produto.desconto !== 0">R$ {{ produto.precoComDesconto }}</div>
-
-                    <div class="mt-2 mr-2">
-                        <button class="btn btn-info btn-sm mr-1" tooltipPosition="bottom" pTooltip="Mais informações"
-                            (click)="dialogInformacoesProduto(produto)"> 
-                            <i class="fas fa-info px-1"></i>
-                        </button>
-
-                        <button class="btn btn-success btn-sm" tooltipPosition="bottom" pTooltip="Adicionar ao Carrinho"
-                            [disabled]="produto.statusProduto === statusProduto.ESGOTADO">
-                            <i class="fas fa-shopping-cart"></i>
-                            Adicionar ao Carrinho
-                        </button>
-                    </div>
-
-                    <div class="produto-status status-produto mr-2"
-                        [ngClass]="{
-                        'status-em-estoque': produto.statusProduto === statusProduto.EM_ESTOQUE,
-                        'status-estoque-baixo': produto.statusProduto === statusProduto.ESTOQUE_BAIXO,
-                        'status-esgotado': produto.statusProduto === statusProduto.ESGOTADO
-                        }">
-                        {{ produto.statusProduto }}
-                    </div>
-                </div>
-            </div>
-        </ng-template>
-    
-        <ng-template let-produto pTemplate="gridItem">
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 d-inline-block">
-    
-                <div class="produto-grid-item card">
-    
-                    <div class="row produto-grid-item-header"> 
-                        <div class="produto-tag-nome-setor">
-                            <i class="fas fa-tag" style="color: rgb(98, 182, 182);"></i>
-                            <div class="produto-nome-setor d-inline-block">{{ produto.setor.nome }}</div>
+                <ng-template pTemplate="header">
+                    <div class="row">
+                        <div class="col-md-4 col-xl-3">
+                            <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordenar por"
+                                (onChange)="onSortChange($event)" [style]="{'width':'200px'}">
+                            </p-dropdown>
                         </div>
-                    
-                        <div class="produto-grid-status status-produto" 
-                            [ngClass]="{
+            
+                        <div class="col-md-3 col-xl-4 p-input-icon-left input-search">
+                            <i class="pi pi-search"></i>
+                            <input type="search" pInputText placeholder="Pesquisar por Nome/Marca" (input)="dataview.filter($event.target.value)"
+                                style="width: 250px;">
+                        </div>
+                        
+                        <div class="col-md-5 col-xl-5 text-right">
+                            <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                        </div>
+                    </div>
+                </ng-template>
+            
+                <ng-template let-produto pTemplate="listItem">
+                    <div class="row">
+                        <div class="col-6 col-sm-3 col-md-3 col-xl-2">
+                            <img class="list-produto-imagem" [src]="produto.imagem || 'assets/prod.jpg'" alt="Imagem não encontrada!">
+                        </div>
+        
+                        <div class="col-6 col-sm-4 col-md-4 col-xl-6">
+                            <div class="list-produto-nome">{{ produto.nome }}</div>
+                            <div class="list-produto-marca">{{ produto.marca }}</div>
+        
+                            <div class="list-produto-tag-nome-setor">
+                                <i class="fas fa-tag" style="color: rgb(98, 182, 182);"></i>
+                                <div class="list-produto-nome-setor d-inline-block">{{ produto.setor.nome }}</div>
+                            </div>
+                        </div>
+        
+                        <div class="col-12 col-sm-5 col-md-5 col-xl-4 text-right">
+                            <div class="produto-preco mt-3 mr-3" [ngClass]="{ 'produto-preco-sem-desconto': produto.desconto !== 0 }">
+                                R$ {{ produto.preco }}
+                            </div>
+        
+                            <div class="produto-preco-com-desconto mr-3" *ngIf="produto.desconto !== 0">R$ {{ produto.precoComDesconto }}</div>
+        
+                            <div class="mt-2 mr-2">
+                                <button class="btn btn-info btn-sm mr-1" tooltipPosition="bottom" pTooltip="Mais informações"
+                                    (click)="dialogInformacoesProduto(produto)"> 
+                                    <i class="fas fa-info px-1"></i>
+                                </button>
+        
+                                <button class="btn btn-success btn-sm" tooltipPosition="bottom" pTooltip="Adicionar ao Carrinho"
+                                    [disabled]="produto.statusProduto === statusProduto.ESGOTADO">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    Adicionar ao Carrinho
+                                </button>
+                            </div>
+        
+                            <div class="produto-status status-produto mr-2"
+                                [ngClass]="{
                                 'status-em-estoque': produto.statusProduto === statusProduto.EM_ESTOQUE,
                                 'status-estoque-baixo': produto.statusProduto === statusProduto.ESTOQUE_BAIXO,
                                 'status-esgotado': produto.statusProduto === statusProduto.ESGOTADO
-                            }">
-                            {{ produto.statusProduto }}
+                                }">
+                                {{ produto.statusProduto }}
+                            </div>
                         </div>
                     </div>
-    
-                    <div class="produto-grid-item-conteudo">
-                        <img class="grid-produto-imagem" [src]="produto.imagem || 'assets/prod.jpg'" alt="Imagem não encontrada!">
-    
-                        <div class="produto-nome">{{ produto.nome }}</div>
-                        <div class="produto-marca">{{ produto.marca }}</div>
-                    </div>
-    
-                    <div class="produto-grid-item-footer">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="produto-preco" 
-                                    [ngClass]="{ 'produto-preco-sem-desconto': produto.desconto !== 0 }">
-                                    R$ {{ produto.preco }}
+                </ng-template>
+            
+                <ng-template let-produto pTemplate="gridItem">
+                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 d-inline-block">
+            
+                        <div class="produto-grid-item card">
+            
+                            <div class="row produto-grid-item-header"> 
+                                <div class="produto-tag-nome-setor">
+                                    <i class="fas fa-tag" style="color: rgb(98, 182, 182);"></i>
+                                    <div class="produto-nome-setor d-inline-block">{{ produto.setor.nome }}</div>
                                 </div>
-    
-                                <div class="produto-preco-com-desconto" *ngIf="produto.desconto !== 0">R$ {{ produto.precoComDesconto }}</div>
-                            </div>
                             
-                            <div class="col-6 produto-grid-item-footer-buttons">
-                                <button class="btn btn-info btn-sm" tooltipPosition="bottom" pTooltip="Mais informações"
-                                (click)="dialogInformacoesProduto(produto)"> 
+                                <div class="produto-status status-produto" 
+                                    [ngClass]="{
+                                        'status-em-estoque': produto.statusProduto === statusProduto.EM_ESTOQUE,
+                                        'status-estoque-baixo': produto.statusProduto === statusProduto.ESTOQUE_BAIXO,
+                                        'status-esgotado': produto.statusProduto === statusProduto.ESGOTADO
+                                    }">
+                                    {{ produto.statusProduto }}
+                                </div>
+                            </div>
+            
+                            <div class="produto-grid-item-conteudo">
+                                <img class="grid-produto-imagem" [src]="produto.imagem || 'assets/prod.jpg'" alt="Imagem não encontrada!">
+            
+                                <div class="produto-nome">{{ produto.nome }}</div>
+                                <div class="produto-marca">{{ produto.marca }}</div>
+                            </div>
+            
+                            <div class="produto-grid-item-footer">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div class="produto-preco" 
+                                            [ngClass]="{ 'produto-preco-sem-desconto': produto.desconto !== 0 }">
+                                            R$ {{ produto.preco }}
+                                        </div>
+            
+                                        <div class="produto-preco-com-desconto" *ngIf="produto.desconto !== 0">R$ {{ produto.precoComDesconto }}</div>
+                                    </div>
+                                    
+                                    <div class="col-7 produto-grid-item-footer-buttons">
+                                        <button class="btn btn-info btn-sm" tooltipPosition="bottom" pTooltip="Mais informações"
+                                        (click)="dialogInformacoesProduto(produto)"> 
+                                            <i class="fas fa-info px-1"></i>
+                                        </button>
+            
+                                        <button class="btn btn-success btn-sm ml-1" tooltipPosition="bottom" pTooltip="Adicionar ao Carrinho"
+                                            [disabled]="produto.statusProduto === statusProduto.ESGOTADO">
+                                            <i class="fas fa-shopping-cart"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-dataView>
+        </p-tabPanel>
+
+        <!-- Produtos em Promoção -->
+        <span class="p-badge p-badge-warning badge-produto-promocao" *ngIf="produtosEmPromocao">{{ produtosEmPromocao.length }}</span>
+        <p-tabPanel header="Em Promoção" [disabled]="!produtosEmPromocao">
+            <p-dataView #dataview [value]="produtosEmPromocao" [sortField]="sortField" [sortOrder]="sortOrder" [paginator]="true" 
+                [rows]="12" [loading]="loading" layout="grid" filterBy="nome,marca" [emptyMessage]="'Não há Produtos em Promoção no momento!'">
+
+                <ng-template pTemplate="header">
+                    <div class="row">
+                        <div class="col-md-4 col-xl-3">
+                            <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordenar por"
+                                (onChange)="onSortChange($event)" [style]="{'width':'200px'}">
+                            </p-dropdown>
+                        </div>
+            
+                        <div class="col-md-3 col-xl-4 p-input-icon-left input-search">
+                            <i class="pi pi-search"></i>
+                            <input type="search" pInputText placeholder="Pesquisar por Nome/Marca" (input)="dataview.filter($event.target.value)"
+                                style="width: 250px;">
+                        </div>
+                        
+                        <div class="col-md-5 col-xl-5 text-right">
+                            <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                        </div>
+                    </div>
+                </ng-template>
+            
+                <ng-template let-produto pTemplate="listItem">
+                    <div class="row">
+                        <div class="col-6 col-sm-3 col-md-3 col-xl-2">
+                            <img class="list-produto-imagem" [src]="produto.imagem || 'assets/prod.jpg'" alt="Imagem não encontrada!">
+                        </div>
+        
+                        <div class="col-6 col-sm-4 col-md-4 col-xl-6">
+                            <div class="list-produto-nome">{{ produto.nome }}</div>
+                            <div class="list-produto-marca">{{ produto.marca }}</div>
+        
+                            <div class="list-produto-tag-nome-setor">
+                                <i class="fas fa-tag" style="color: rgb(98, 182, 182);"></i>
+                                <div class="list-produto-nome-setor d-inline-block">{{ produto.setor.nome }}</div>
+                            </div>
+                        </div>
+        
+                        <div class="col-12 col-sm-5 col-md-5 col-xl-4 text-right">
+                            <div class="produto-preco mt-3 mr-3" [ngClass]="{ 'produto-preco-sem-desconto': produto.desconto !== 0 }">
+                                R$ {{ produto.preco }}
+                            </div>
+        
+                            <div class="produto-preco-com-desconto mr-3" *ngIf="produto.desconto !== 0">R$ {{ produto.precoComDesconto }}</div>
+        
+                            <div class="mt-2 mr-2">
+                                <button class="btn btn-info btn-sm mr-1" tooltipPosition="bottom" pTooltip="Mais informações"
+                                    (click)="dialogInformacoesProduto(produto)"> 
                                     <i class="fas fa-info px-1"></i>
                                 </button>
-    
-                                <button class="btn btn-success btn-sm ml-1" tooltipPosition="bottom" pTooltip="Adicionar ao Carrinho"
+        
+                                <button class="btn btn-success btn-sm" tooltipPosition="bottom" pTooltip="Adicionar ao Carrinho"
                                     [disabled]="produto.statusProduto === statusProduto.ESGOTADO">
                                     <i class="fas fa-shopping-cart"></i>
+                                    Adicionar ao Carrinho
                                 </button>
+                            </div>
+        
+                            <div class="produto-status status-produto mr-2"
+                                [ngClass]="{
+                                'status-em-estoque': produto.statusProduto === statusProduto.EM_ESTOQUE,
+                                'status-estoque-baixo': produto.statusProduto === statusProduto.ESTOQUE_BAIXO,
+                                'status-esgotado': produto.statusProduto === statusProduto.ESGOTADO
+                                }">
+                                {{ produto.statusProduto }}
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </ng-template>
-    </p-dataView>
+                </ng-template>
+            
+                <ng-template let-produto pTemplate="gridItem">
+                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 d-inline-block">
+            
+                        <div class="produto-grid-item card">
+            
+                            <div class="row produto-grid-item-header"> 
+                                <div class="produto-tag-nome-setor">
+                                    <i class="fas fa-tag" style="color: rgb(98, 182, 182);"></i>
+                                    <div class="produto-nome-setor d-inline-block">{{ produto.setor.nome }}</div>
+                                </div>
+                            
+                                <div class="produto-status status-produto" 
+                                    [ngClass]="{
+                                        'status-em-estoque': produto.statusProduto === statusProduto.EM_ESTOQUE,
+                                        'status-estoque-baixo': produto.statusProduto === statusProduto.ESTOQUE_BAIXO,
+                                        'status-esgotado': produto.statusProduto === statusProduto.ESGOTADO
+                                    }">
+                                    {{ produto.statusProduto }}
+                                </div>
+                            </div>
+            
+                            <div class="produto-grid-item-conteudo">
+                                <img class="grid-produto-imagem" [src]="produto.imagem || 'assets/prod.jpg'" alt="Imagem não encontrada!">
+            
+                                <div class="produto-nome">{{ produto.nome }}</div>
+                                <div class="produto-marca">{{ produto.marca }}</div>
+                            </div>
+            
+                            <div class="produto-grid-item-footer">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div class="produto-preco" 
+                                            [ngClass]="{ 'produto-preco-sem-desconto': produto.desconto !== 0 }">
+                                            R$ {{ produto.preco }}
+                                        </div>
+            
+                                        <div class="produto-preco-com-desconto" *ngIf="produto.desconto !== 0">R$ {{ produto.precoComDesconto }}</div>
+                                    </div>
+                                    
+                                    <div class="col-7 produto-grid-item-footer-buttons">
+                                        <button class="btn btn-info btn-sm" tooltipPosition="bottom" pTooltip="Mais informações"
+                                        (click)="dialogInformacoesProduto(produto)"> 
+                                            <i class="fas fa-info px-1"></i>
+                                        </button>
+            
+                                        <button class="btn btn-success btn-sm ml-1" tooltipPosition="bottom" pTooltip="Adicionar ao Carrinho"
+                                            [disabled]="produto.statusProduto === statusProduto.ESGOTADO">
+                                            <i class="fas fa-shopping-cart"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-dataView>
+        </p-tabPanel>
+    </p-tabView>  
 </div>
 
 

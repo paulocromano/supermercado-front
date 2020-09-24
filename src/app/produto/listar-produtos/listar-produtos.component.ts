@@ -29,8 +29,11 @@ export class ListarProdutosComponent implements OnInit {
   public loading: boolean;
 
   public statusProduto = StatusProduto;
+  public produtosEmPromocao: Produto[];
+
   public mostrarDialogInformacoesproduto = false;
   public produtoDialog: Produto;
+
 
   constructor(
     private produtoService: ProdutoService,
@@ -41,6 +44,7 @@ export class ListarProdutosComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarProdutos();
+    this.listarProdutosEmPromocao();
     this.ordenacaoDataView();
 
     this.primengConfig.ripple = true;
@@ -57,29 +61,50 @@ export class ListarProdutosComponent implements OnInit {
     this.produtoService.buscarTodosProdutos()
       .subscribe((produto: Produto[]) => {
         this.produtos = produto;  
-        this.carregarImagem();
+        this.carregarImagem(this.produtos);
         this.loading = false;
       },
 
         (errorBackEnd: HttpErrorResponse) => {
           console.log(errorBackEnd)
           this.loading = false;
-        },
+        }
       );      
   }
 
   /**
-   * @description Método responsável por carregar a imagem de cada Produto
+   * @description Método responsável por listar os Produtos em Promoção
    */
-  public carregarImagem(): void {
+  private listarProdutosEmPromocao(): void {
+    this.loading = true;
+
+    this.produtoService.buscarProdutosEmPromocao()
+      .subscribe((produto: Produto[]) => {
+        this.produtosEmPromocao = produto;
+        this.carregarImagem(this.produtosEmPromocao);
+        this.loading = false;
+      },
+
+        (errorBackEnd: HttpErrorResponse) => {
+        console.log(errorBackEnd)
+        this.loading = false;
+        }
+      );
+  }
+
+  /**
+   * @description Método responsável por carregar a imagem de cada Produto
+   * @param produtos : Produto[]
+   */
+  public carregarImagem(produtos: Produto[]): void {
    
-    for (let i = 0; i < this.produtos.length; i++) {
-      const idProduto = this.produtos[i].id;
+    for (let i = 0; i < produtos.length; i++) {
+      const idProduto = produtos[i].id;
       
       this.produtoService.buscarImagemProduto(idProduto)
       .subscribe((imagem: any) => {
         let blob = new Blob([imagem]);
-        this.produtos[i].imagem = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(blob));
+        produtos[i].imagem = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(blob));
       }),
         (error) => {};
     }; 

@@ -2,7 +2,7 @@
     .data-view {
         border: 2px solid rgb(218, 217, 217);
         border-radius: 3px;
-        margin: 3rem 2rem 0 2rem;
+        margin: 2rem 1rem;
     }
 }
 
@@ -177,4 +177,12 @@
         margin-top: 5px;
         margin-bottom: 10px;
     }
+}
+
+.badge-produto-promocao {
+    position: absolute;
+    display: inline-block;
+    z-index: 10;
+    top: 25px;
+    left: 210px;
 }

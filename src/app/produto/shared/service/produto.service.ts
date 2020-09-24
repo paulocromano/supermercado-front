@@ -29,6 +29,13 @@ export class ProdutoService {
       );
   }
 
+  public buscarProdutosEmPromocao(): Observable<Produto[]>  {
+    return this.http.get<Produto[]>(`${API_CONFIG.baseUrl}/produto/listar-com-desconto`)
+    .pipe(
+      tap(console.log)
+    );
+  }
+
   /**
    * Método responsável por receber a imagem de um Produto do Back-End
    * @param id : number
